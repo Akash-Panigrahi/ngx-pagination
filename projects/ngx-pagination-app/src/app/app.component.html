@@ -1,11 +1,13 @@
 <np-ngx-pagination
-    [id]="pagination-id-1"
+    [id]="'pagination-id-1'"
     [currentPage]="1"
     [elementsPerPage]="10"
     [totalElements]="840"
     [maxPages]="3"
     [endPages]="true"
-    [adjacentPages]="false"
+    [adjacentPages]="true"
     [morePagesHint]="false"
+    [rotate]="false"
+    [disabled]="false"
     (pageChange)="onPageChange($event)">
 </np-ngx-pagination>

@@ -9,23 +9,21 @@
     [attr.aria-label]="'First Page'"
     [matTooltip]="'First Page'"
     [matTooltipPosition]="'above'"
+    [disabled]="firstDisabled()"
     (click)="selectPage(1, $event)">
-    <mat-icon>
-      first_page
-    </mat-icon>
+    <mat-icon>first_page</mat-icon>
   </button>
 
   <button
     *ngIf="adjacentPages"
     mat-icon-button
     type="button"
-    (click)="selectPage(currentPage - 1, $event)"
     [attr.aria-label]="'Previous Page'"
     [matTooltip]="'Previous Page'"
-    [matTooltipPosition]="'above'">
-    <mat-icon>
-    chevron_left
-    </mat-icon>
+    [matTooltipPosition]="'above'"
+    [disabled]="previousDisabled()"
+    (click)="selectPage(currentPage - 1, $event)">
+    <mat-icon>chevron_left</mat-icon>
   </button>
 
   <mat-icon
@@ -37,20 +35,22 @@
 
   <ng-container *ngFor="let page of visiblePages | async">
 
-    <ng-template [ngIf]="page === currentPage" [ngIfElse]="notSelectedPage">
+    <ng-template [ngIf]="page === currentPage && !disabled" [ngIfElse]="notCurrentPage">
       <button
         mat-flat-button
         color="primary"
         class="page page--active"
+        [disabled]="disabled"
         (click)="selectPage(page, $event)">
         {{page}}
       </button>
     </ng-template>
 
-    <ng-template #notSelectedPage>
+    <ng-template #notCurrentPage>
       <button
         mat-icon-button
         class="page"
+        [disabled]="disabled"
         (click)="selectPage(page, $event)">
         {{page}}
       </button>
@@ -69,25 +69,23 @@
     *ngIf="adjacentPages"
     mat-icon-button
     type="button"
-    (click)="selectPage(currentPage + 1, $event)"
     [attr.aria-label]="'Next Page'"
     [matTooltip]="'Next Page'"
-    [matTooltipPosition]="'above'">
-    <mat-icon>
-    chevron_right
-    </mat-icon>
+    [matTooltipPosition]="'above'"
+    [disabled]="nextDisabled()"
+    (click)="selectPage(currentPage + 1, $event)">
+    <mat-icon>chevron_right</mat-icon>
   </button>
 
   <button
     *ngIf="endPages"
     mat-icon-button
     type="button"
-    (click)="selectPage(totalPages, $event)"
     [attr.aria-label]="'Last Page'"
     [matTooltip]="'Last Page'"
-    [matTooltipPosition]="'above'">
-    <mat-icon>
-    last_page
-    </mat-icon>
+    [matTooltipPosition]="'above'"
+    [disabled]="lastDisabled()"
+    (click)="selectPage(totalPages, $event)">
+    <mat-icon>last_page</mat-icon>
   </button>
 </div>

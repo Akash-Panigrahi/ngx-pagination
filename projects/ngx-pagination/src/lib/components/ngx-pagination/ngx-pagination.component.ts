@@ -19,6 +19,8 @@ export class NgxPaginationComponent implements OnInit {
   @Input() endPages = true;
   @Input() adjacentPages = true;
   @Input() morePagesHint = true;
+  @Input() rotate = true;
+  @Input() disabled = false;
 
   @Output()
   pageChange = new EventEmitter<number>();
@@ -72,4 +74,25 @@ export class NgxPaginationComponent implements OnInit {
   cancelEvent(event: Event) {
     event.preventDefault();
   }
+
+  private _paginate(currentPage: number, elementsPerPage: number): [number, number] {
+    const page = Math.ceil(currentPage / elementsPerPage) - 1;
+    const start = page * elementsPerPage;
+    const end = start + elementsPerPage;
+
+    return [start, end];
+  }
+
+  /** informative functions */
+  hasPrevious(): boolean { return this.currentPage > 1; }
+
+  hasNext(): boolean { return this.currentPage < this.totalPages; }
+
+  previousDisabled(): boolean { return !this.hasPrevious() || this.disabled; }
+
+  nextDisabled(): boolean { return !this.hasNext() || this.disabled; }
+
+  firstDisabled(): boolean { return !this.hasPrevious() || this.disabled; }
+
+  lastDisabled(): boolean { return !this.hasNext() || this.disabled; }
 }
