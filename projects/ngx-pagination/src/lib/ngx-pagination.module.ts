@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
-import { NgxPaginationComponent } from './components/ngx-pagination/ngx-pagination.component';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule, MatButtonModule, MatIconModule } from '@angular/material';
+
+import { NgxPaginationComponent } from './components/ngx-pagination/ngx-pagination.component';
 
 @NgModule({
   declarations: [NgxPaginationComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [NgxPaginationComponent]
 })

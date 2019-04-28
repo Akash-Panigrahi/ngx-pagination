@@ -1,31 +1,85 @@
-<ul class="pagination">
-  <li (click)="selectPage(1, $event)" [class.disabled]="currentPage == 1">
-    <a href="" title="Go to first page">&laquo;</a>
-  </li>
+<div class="pagination">
+  <button
+    mat-icon-button
+    type="button"
+    [attr.aria-label]="'First Page'"
+    [matTooltip]="'First Page'"
+    [matTooltipPosition]="'above'"
+    (click)="selectPage(1, $event)">
+    <mat-icon>
+      first_page
+    </mat-icon>
+  </button>
 
-  <li (click)="selectPage(currentPage - 1, $event)" [class.disabled]="currentPage == 1">
-    <a href="" title="Go to previous page">&lsaquo;</a>
-  </li>
+  <button
+    mat-icon-button
+    type="button"
+    (click)="selectPage(currentPage - 1, $event)"
+    [attr.aria-label]="'Previous Page'"
+    [matTooltip]="'Previous Page'"
+    [matTooltipPosition]="'above'">
+    <mat-icon>
+    chevron_left
+    </mat-icon>
+  </button>
 
-  <li class="disabled" (click)="cancelEvent($event)" *ngIf="(currentPage - range) > 1">
-    <a href="">...</a>
-  </li>
+  <mat-icon
+    class="disabled"
+    (click)="cancelEvent($event)"
+    *ngIf="(currentPage - range) > 1">
+    more_horiz
+  </mat-icon>
 
-  <li *ngFor="let page of pages | async" [class.active]="page == currentPage">
-    <a href="" (click)="selectPage(page, $event)">
-      {{page}}
-    </a>
-  </li>
+  <ng-container *ngFor="let page of pages | async">
 
-  <li class="disabled" (click)="cancelEvent($event)" *ngIf="(currentPage + range) < totalPages">
-    <a href="">...</a>
-  </li>
+    <ng-template [ngIf]="page === currentPage" [ngIfElse]="notSelectedPage">
+      <button
+        mat-flat-button
+        color="primary"
+        [style.min-width]="'auto'"
+        (click)="selectPage(page, $event)">
+        {{page}}
+      </button>
+    </ng-template>
 
-  <li (click)="selectPage(currentPage + 1, $event)" [class.disabled]="currentPage == totalPages">
-    <a href="" title="Go to next page">&rsaquo;</a>
-  </li>
+    <ng-template #notSelectedPage>
+      <button
+        mat-icon-button
+        (click)="selectPage(page, $event)">
+        {{page}}
+      </button>
+    </ng-template>
 
-  <li (click)="selectPage(totalPages, $event)" [class.disabled]="currentPage == totalPages">
-    <a href="" title="Go to last page">&raquo;</a>
-  </li>
-</ul>
+  </ng-container>
+
+  <mat-icon
+    class="disabled"
+    (click)="cancelEvent($event)"
+    *ngIf="(currentPage + range) < totalPages">
+    more_horiz
+  </mat-icon>
+
+  <button
+    mat-icon-button
+    type="button"
+    (click)="selectPage(currentPage + 1, $event)"
+    [attr.aria-label]="'Next Page'"
+    [matTooltip]="'Next Page'"
+    [matTooltipPosition]="'above'">
+    <mat-icon>
+    chevron_right
+    </mat-icon>
+  </button>
+
+  <button
+    mat-icon-button
+    type="button"
+    (click)="selectPage(totalPages, $event)"
+    [attr.aria-label]="'Last Page'"
+    [matTooltip]="'Last Page'"
+    [matTooltipPosition]="'above'">
+    <mat-icon>
+    last_page
+    </mat-icon>
+  </button>
+</div>
