@@ -1,91 +1,91 @@
 <div
-  [id]="id"
-  class="pagination">
+    [id]="id"
+    class="pagination">
 
-  <button
-    *ngIf="endPages"
-    mat-icon-button
-    type="button"
-    [attr.aria-label]="'First Page'"
-    [matTooltip]="'First Page'"
-    [matTooltipPosition]="'above'"
-    [disabled]="firstDisabled()"
-    (click)="selectPage(1, $event)">
-    <mat-icon>first_page</mat-icon>
-  </button>
-
-  <button
-    *ngIf="adjacentPages"
-    mat-icon-button
-    type="button"
-    [attr.aria-label]="'Previous Page'"
-    [matTooltip]="'Previous Page'"
-    [matTooltipPosition]="'above'"
-    [disabled]="previousDisabled()"
-    (click)="selectPage(currentPage - 1, $event)">
-    <mat-icon>chevron_left</mat-icon>
-  </button>
-
-  <mat-icon
-    class="more-pages"
-    (click)="cancelEvent($event)"
-    *ngIf="morePagesHint && (currentPage - maxPages) > 1">
-    more_horiz
-  </mat-icon>
-
-  <ng-container *ngFor="let page of visiblePages | async">
-
-    <ng-template [ngIf]="page === currentPage && !disabled" [ngIfElse]="notCurrentPage">
-      <button
-        mat-flat-button
-        color="primary"
-        class="page page--active"
-        [disabled]="disabled"
-        (click)="selectPage(page, $event)">
-        {{page}}
-      </button>
-    </ng-template>
-
-    <ng-template #notCurrentPage>
-      <button
+    <button
+        *ngIf="boundaryPagesHandles"
         mat-icon-button
-        class="page"
-        [disabled]="disabled"
-        (click)="selectPage(page, $event)">
-        {{page}}
-      </button>
-    </ng-template>
+        type="button"
+        [attr.aria-label]="'First Page'"
+        [matTooltip]="'First Page'"
+        [matTooltipPosition]="'above'"
+        [disabled]="firstDisabled()"
+        (click)="selectPage(1, $event)">
+        <mat-icon>first_page</mat-icon>
+    </button>
 
-  </ng-container>
+    <button
+        *ngIf="adjacentPagesHandles"
+        mat-icon-button
+        type="button"
+        [attr.aria-label]="'Previous Page'"
+        [matTooltip]="'Previous Page'"
+        [matTooltipPosition]="'above'"
+        [disabled]="previousDisabled()"
+        (click)="selectPage(currentPage - 1, $event)">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
 
-  <mat-icon
-    class="more-pages"
-    (click)="cancelEvent($event)"
-    *ngIf="morePagesHint && (currentPage + maxPages) < totalPages">
-    more_horiz
-  </mat-icon>
+    <mat-icon
+        class="more-pages"
+        (click)="cancelEvent($event)"
+        *ngIf="morePagesHint && (currentPage - maxPages) > 1">
+        more_horiz
+    </mat-icon>
 
-  <button
-    *ngIf="adjacentPages"
-    mat-icon-button
-    type="button"
-    [attr.aria-label]="'Next Page'"
-    [matTooltip]="'Next Page'"
-    [matTooltipPosition]="'above'"
-    [disabled]="nextDisabled()"
-    (click)="selectPage(currentPage + 1, $event)">
-    <mat-icon>chevron_right</mat-icon>
-  </button>
+    <ng-container *ngFor="let page of visiblePages | async">
 
-  <button
-    *ngIf="endPages"
-    mat-icon-button
-    type="button"
-    [attr.aria-label]="'Last Page'"
-    [matTooltip]="'Last Page'"
-    [matTooltipPosition]="'above'"
-    [disabled]="lastDisabled()"
-    (click)="selectPage(totalPages, $event)">
-    <mat-icon>last_page</mat-icon>
-  </button>
+        <ng-template [ngIf]="page === currentPage && !disabled" [ngIfElse]="notCurrentPage">
+        <button
+            mat-flat-button
+            color="primary"
+            class="page page--active"
+            [disabled]="disabled"
+            (click)="selectPage(page, $event)">
+            {{page}}
+        </button>
+        </ng-template>
+
+        <ng-template #notCurrentPage>
+        <button
+            mat-icon-button
+            class="page"
+            [disabled]="disabled"
+            (click)="selectPage(page, $event)">
+            {{page}}
+        </button>
+        </ng-template>
+
+    </ng-container>
+
+    <mat-icon
+        class="more-pages"
+        (click)="cancelEvent($event)"
+        *ngIf="morePagesHint && (currentPage + maxPages) < totalPages">
+        more_horiz
+    </mat-icon>
+
+    <button
+        *ngIf="adjacentPagesHandles"
+        mat-icon-button
+        type="button"
+        [attr.aria-label]="'Next Page'"
+        [matTooltip]="'Next Page'"
+        [matTooltipPosition]="'above'"
+        [disabled]="nextDisabled()"
+        (click)="selectPage(currentPage + 1, $event)">
+        <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <button
+        *ngIf="boundaryPagesHandles"
+        mat-icon-button
+        type="button"
+        [attr.aria-label]="'Last Page'"
+        [matTooltip]="'Last Page'"
+        [matTooltipPosition]="'above'"
+        [disabled]="lastDisabled()"
+        (click)="selectPage(totalPages, $event)">
+        <mat-icon>last_page</mat-icon>
+    </button>
 </div>

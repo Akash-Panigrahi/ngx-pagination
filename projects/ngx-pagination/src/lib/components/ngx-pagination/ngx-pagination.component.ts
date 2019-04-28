@@ -16,9 +16,10 @@ export class NgxPaginationComponent implements OnInit {
   @Input() elementsPerPage = 10;
   @Input() totalElements = 100;
   @Input() maxPages = 3;
-  @Input() endPages = true;
-  @Input() adjacentPages = true;
+  @Input() boundaryPagesHandles = true;
+  @Input() adjacentPagesHandles = true;
   @Input() morePagesHint = true;
+  @Input() edgePages = true; // works only if @moreHintPages is true
   @Input() rotate = true;
   @Input() disabled = false;
 
