@@ -31,7 +31,7 @@
   <mat-icon
     class="more-pages"
     (click)="cancelEvent($event)"
-    *ngIf="(currentPage - maxPages) > 1">
+    *ngIf="morePagesHint && (currentPage - maxPages) > 1">
     more_horiz
   </mat-icon>
 
@@ -61,7 +61,7 @@
   <mat-icon
     class="more-pages"
     (click)="cancelEvent($event)"
-    *ngIf="(currentPage + maxPages) < totalPages">
+    *ngIf="morePagesHint && (currentPage + maxPages) < totalPages">
     more_horiz
   </mat-icon>
 

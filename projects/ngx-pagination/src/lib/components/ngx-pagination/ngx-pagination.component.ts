@@ -18,6 +18,7 @@ export class NgxPaginationComponent implements OnInit {
   @Input() maxPages = 3;
   @Input() endPages = true;
   @Input() adjacentPages = true;
+  @Input() morePagesHint = true;
 
   @Output()
   pageChange = new EventEmitter<number>();
