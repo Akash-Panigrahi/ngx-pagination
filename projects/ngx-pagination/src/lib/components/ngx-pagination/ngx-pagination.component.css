@@ -1,4 +1,16 @@
 .pagination {
+    display: inline-flex;
+    align-items: center;
+}
+
+.pagination .page--active {
+    min-width: auto;
+}
+
+.pagination .more-pages {
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }

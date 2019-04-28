@@ -24,7 +24,7 @@
   </button>
 
   <mat-icon
-    class="disabled"
+    class="more-pages"
     (click)="cancelEvent($event)"
     *ngIf="(currentPage - range) > 1">
     more_horiz
@@ -36,7 +36,7 @@
       <button
         mat-flat-button
         color="primary"
-        [style.min-width]="'auto'"
+        class="page page--active"
         (click)="selectPage(page, $event)">
         {{page}}
       </button>
@@ -45,6 +45,7 @@
     <ng-template #notSelectedPage>
       <button
         mat-icon-button
+        class="page"
         (click)="selectPage(page, $event)">
         {{page}}
       </button>
@@ -53,7 +54,7 @@
   </ng-container>
 
   <mat-icon
-    class="disabled"
+    class="more-pages"
     (click)="cancelEvent($event)"
     *ngIf="(currentPage + range) < totalPages">
     more_horiz
