@@ -1,5 +1,9 @@
-<div class="pagination">
+<div
+  [id]="id"
+  class="pagination">
+
   <button
+    *ngIf="endPages"
     mat-icon-button
     type="button"
     [attr.aria-label]="'First Page'"
@@ -12,6 +16,7 @@
   </button>
 
   <button
+    *ngIf="adjacentPages"
     mat-icon-button
     type="button"
     (click)="selectPage(currentPage - 1, $event)"
@@ -26,11 +31,11 @@
   <mat-icon
     class="more-pages"
     (click)="cancelEvent($event)"
-    *ngIf="(currentPage - range) > 1">
+    *ngIf="(currentPage - maxPages) > 1">
     more_horiz
   </mat-icon>
 
-  <ng-container *ngFor="let page of pages | async">
+  <ng-container *ngFor="let page of visiblePages | async">
 
     <ng-template [ngIf]="page === currentPage" [ngIfElse]="notSelectedPage">
       <button
@@ -56,11 +61,12 @@
   <mat-icon
     class="more-pages"
     (click)="cancelEvent($event)"
-    *ngIf="(currentPage + range) < totalPages">
+    *ngIf="(currentPage + maxPages) < totalPages">
     more_horiz
   </mat-icon>
 
   <button
+    *ngIf="adjacentPages"
     mat-icon-button
     type="button"
     (click)="selectPage(currentPage + 1, $event)"
@@ -73,6 +79,7 @@
   </button>
 
   <button
+    *ngIf="endPages"
     mat-icon-button
     type="button"
     (click)="selectPage(totalPages, $event)"

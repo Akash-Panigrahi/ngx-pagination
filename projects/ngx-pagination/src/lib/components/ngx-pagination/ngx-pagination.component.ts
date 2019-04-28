@@ -10,39 +10,35 @@ import { map, filter, toArray } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class NgxPaginationComponent implements OnInit {
-  @Input()
-  offset = 0;
 
-  @Input()
-  limit = 1;
-
-  @Input()
-  size = 1;
-
-  @Input()
-  range = 3;
+  @Input() id: string;
+  @Input() currentPage = 1;
+  @Input() elementsPerPage = 10;
+  @Input() totalElements = 100;
+  @Input() maxPages = 3;
+  @Input() endPages = true;
+  @Input() adjacentPages = true;
 
   @Output()
   pageChange = new EventEmitter<number>();
 
-  pages: Observable<number[]>;
-  currentPage: number;
+  visiblePages: Observable<number[]>;
   totalPages: number;
 
   constructor() { }
 
   ngOnInit() {
-    this.createPages(this.offset, this.limit, this.size);
+    this.createPages(this.currentPage, this.elementsPerPage, this.totalElements);
   }
 
   ngOnChanges() {
-    this.createPages(this.offset, this.limit, this.size);
+    this.createPages(this.currentPage, this.elementsPerPage, this.totalElements);
   }
 
-  createPages(offset: number, limit: number, size: number) {
-    this.currentPage = this.getCurrentPage(offset, limit);
-    this.totalPages = this.getTotalPages(limit, size);
-    this.pages = range(-this.range, this.range * 2 + 1)
+  createPages(offset: number, elementsPerPage: number, totalElements: number) {
+    this.currentPage = offset;
+    this.totalPages = this.getTotalPages(elementsPerPage, totalElements);
+    this.visiblePages = range(-this.maxPages, this.maxPages * 2 + 1)
       .pipe(
         map(offset => this.currentPage + offset),
         filter(page => this.isValidPageNumber(page, this.totalPages)),
@@ -54,22 +50,21 @@ export class NgxPaginationComponent implements OnInit {
     return page > 0 && page <= totalPages;
   }
 
-  getCurrentPage(offset: number, limit: number): number {
-    return Math.floor(offset / limit) + 1;
+  getCurrentPage(offset: number, elementsPerPage: number): number {
+    return Math.floor(offset / elementsPerPage) + 1;
   }
 
-  getTotalPages(limit: number, size: number): number {
-    return Math.ceil(Math.max(size, 1) / Math.max(limit, 1));
+  getTotalPages(elementsPerPage: number, totalElements: number): number {
+    return Math.ceil(Math.max(totalElements, 1) / Math.max(elementsPerPage, 1));
   }
 
   selectPage(page: number, event: Event) {
     this.cancelEvent(event);
 
     if (this.isValidPageNumber(page, this.totalPages)) {
-      const offset = (page - 1) * this.limit;
 
-      this.createPages(offset, this.limit, this.size);
-      this.pageChange.emit(offset);
+      this.createPages(page, this.elementsPerPage, this.totalElements);
+      this.pageChange.emit(page);
     }
   }
 
