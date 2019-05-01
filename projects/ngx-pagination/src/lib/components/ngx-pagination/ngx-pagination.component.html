@@ -36,25 +36,27 @@
 
     <ng-container *ngFor="let page of visiblePages | async">
 
-        <ng-template [ngIf]="page === currentPage && !disabled" [ngIfElse]="notCurrentPage">
-        <button
-            mat-flat-button
-            color="primary"
-            class="page page--active"
-            [disabled]="disabled"
-            (click)="selectPage(page, $event)">
-            {{page}}
-        </button>
+        <ng-template
+            [ngIf]="page === currentPage && !disabled"
+            [ngIfElse]="notCurrentPage">
+            <button
+                mat-flat-button
+                color="primary"
+                class="page page--active"
+                [disabled]="disabled"
+                (click)="selectPage(page, $event)">
+                {{page}}
+            </button>
         </ng-template>
 
         <ng-template #notCurrentPage>
-        <button
-            mat-icon-button
-            class="page"
-            [disabled]="disabled"
-            (click)="selectPage(page, $event)">
-            {{page}}
-        </button>
+            <button
+                mat-button
+                class="page"
+                [disabled]="disabled"
+                (click)="selectPage(page, $event)">
+                {{page}}
+            </button>
         </ng-template>
 
     </ng-container>
