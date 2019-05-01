@@ -1,6 +1,7 @@
 <div
     [id]="id"
-    class="pagination">
+    class="pagination"
+    *ngIf="!(autoHide && totalElements <= elementsPerPage)">
 
     <button
         *ngIf="boundaryPagesHandles"

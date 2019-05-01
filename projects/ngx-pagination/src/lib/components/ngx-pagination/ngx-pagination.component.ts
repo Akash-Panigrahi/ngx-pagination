@@ -22,6 +22,7 @@ export class NgxPaginationComponent implements OnInit {
   @Input() edgePages = true; // works only if @moreHintPages is true
   @Input() rotate = true;
   @Input() disabled = false;
+  @Input() autoHide = false;
 
   @Output()
   pageChange = new EventEmitter<number>();
@@ -96,4 +97,6 @@ export class NgxPaginationComponent implements OnInit {
   firstDisabled(): boolean { return !this.hasPrevious() || this.disabled; }
 
   lastDisabled(): boolean { return !this.hasNext() || this.disabled; }
+
+
 }
