@@ -10,7 +10,7 @@
         [attr.aria-label]="'First Page'"
         [matTooltip]="'First Page'"
         [matTooltipPosition]="'above'"
-        [disabled]="firstDisabled()"
+        [disabled]="isBeforeDisabled()"
         (click)="selectPage(1, $event)">
         <mat-icon>first_page</mat-icon>
     </button>
@@ -22,7 +22,7 @@
         [attr.aria-label]="'Previous Page'"
         [matTooltip]="'Previous Page'"
         [matTooltipPosition]="'above'"
-        [disabled]="previousDisabled()"
+        [disabled]="isBeforeDisabled()"
         (click)="selectPage(currentPage - 1, $event)">
         <mat-icon>chevron_left</mat-icon>
     </button>
@@ -34,7 +34,7 @@
         more_horiz
     </mat-icon>
 
-    <ng-container *ngFor="let page of visiblePages | async">
+    <ng-container *ngFor="let page of visiblePages">
 
         <ng-template
             [ngIf]="page === currentPage && !disabled"
@@ -75,7 +75,7 @@
         [attr.aria-label]="'Next Page'"
         [matTooltip]="'Next Page'"
         [matTooltipPosition]="'above'"
-        [disabled]="nextDisabled()"
+        [disabled]="isAfterDisabled()"
         (click)="selectPage(currentPage + 1, $event)">
         <mat-icon>chevron_right</mat-icon>
     </button>
@@ -87,7 +87,7 @@
         [attr.aria-label]="'Last Page'"
         [matTooltip]="'Last Page'"
         [matTooltipPosition]="'above'"
-        [disabled]="lastDisabled()"
+        [disabled]="isAfterDisabled()"
         (click)="selectPage(totalPages, $event)">
         <mat-icon>last_page</mat-icon>
     </button>

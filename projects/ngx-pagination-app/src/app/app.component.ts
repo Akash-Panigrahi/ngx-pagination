@@ -7,9 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ngx-pagination-app';
-  offset = 1;
 
-  onPageChange(offset: number) {
-    console.log({ offset });
+  onPageChange(page: number) {
+    console.log({ page });
   }
 }
